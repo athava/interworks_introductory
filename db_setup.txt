@@ -1,0 +1,122 @@
+how to setup db 
+----------------------------------------------------------------------------------
+CREATE TABLE [dbo].[Discounts] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [DiscountName] NVARCHAR (10) NOT NULL,
+    [DiscountType] NVARCHAR (10) NOT NULL,
+    CONSTRAINT [PK_DiscountId] PRIMARY KEY CLUSTERED ([Id] ASC),
+);
+
+CREATE TABLE [dbo].[Subscriptions] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [SubscriptionName] NVARCHAR (20) NOT NULL,
+    [SubscriptionPrice] FLOAT  NOT NULL,
+    CONSTRAINT [PK_SubscriptionId] PRIMARY KEY CLUSTERED ([Id] ASC),
+);
+
+CREATE TABLE [dbo].[SubscriptionTypes] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [SynpriptionType] NVARCHAR (10) NOT NULL,
+    CONSTRAINT [PK_SubscriptionTypetId] PRIMARY KEY CLUSTERED ([Id] ASC),
+);
+
+CREATE TABLE [dbo].[CustomerSubscription] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [CustomerId] INT NOT NULL,
+    [SubscriptionId] INT NOT NULL,
+    CONSTRAINT [PK_CustomerSubscriptionId] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_CustomerSubscription_Customer] FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customer] ([Id]),
+	CONSTRAINT [FK_CustomerSubscription_Subscription] FOREIGN KEY ([SubscriptionId]) REFERENCES [dbo].[Subscriptions] ([Id]),
+);
+
+CREATE TABLE [dbo].[SubscriptionDiscount] (
+    [Id]          INT           IDENTITY (1, 1) NOT NULL,
+    [SubscriptionId] INT NOT NULL,
+    [DiscountId] INT NOT NULL,
+    CONSTRAINT [PK_SubscriptionDiscountId] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_SubscriptionDiscount_CustomerSubscription] FOREIGN KEY ([CustomerSubscriptionId]) REFERENCES [dbo].[CustomerSubscription] ([Id]),
+	CONSTRAINT [FK_SubscriptionDiscount_Discounts] FOREIGN KEY ([Discountd]) REFERENCES [dbo].[Discounts] ([Id]),
+);
+
+------------------------------------------------------------------------------------
+
+
+how to setup stored procedures
+----------------------------------------------------------------------------------
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[sp_GetAllCustomers]
+AS
+BEGIN
+SELECT * FROM interworksDB.dbo.Customer
+END
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE   PROCEDURE [dbo].[sp_GetAllDiscounts]
+AS
+BEGIN
+SELECT * FROM interworksDB.dbo.Discounts
+END
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE   PROCEDURE [dbo].[sp_GetAllSubscriptions]
+AS
+BEGIN
+SELECT * FROM interworksDB.dbo.Subscriptions
+END
+GO
+-----------------------------------------------------------------------------------------------------------
+
+
+
+run scripts 
+----------------------------------------------------------------------------------------------------------
+INSERT INTO [dbo].[Discounts]
+           ([DiscountName]
+           ,[DiscountType]
+           ,[DiscountValue])
+     VALUES
+           ('PriceList'
+           ,'PerCent'
+           ,15)
+GO
+
+INSERT INTO [dbo].[Discounts]
+           ([DiscountName]
+           ,[DiscountType]
+           ,[DiscountValue])
+     VALUES
+           ('Promotion'
+           ,'PerCent'
+           ,10)
+GO
+
+INSERT INTO [dbo].[Discounts]
+           ([DiscountName]
+           ,[DiscountType]
+           ,[DiscountValue])
+     VALUES
+           ('Coupon5'
+           ,'Value'
+           ,5)
+GO
