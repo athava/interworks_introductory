@@ -1,0 +1,59 @@
+﻿@model SubscriptionsVM
+@{
+    ViewBag.Title = "Subscriptions";
+    Layout = "_Layout";
+}
+
+<div class=" d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h2>Subscriptions</h2>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-sm ListTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var index = 0; index < Model.Subscriptions.Count(); index++)
+            {
+                var sub = Model.Subscriptions.ElementAt(index);
+                <tr class="@(index == 0 ? "active" : "")"
+                    style="cursor: pointer">
+                    <td data-label="Name">@sub.SubscriptionName</td>
+                    <td data-label="Type">@sub.SubscriptionPrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        const deleteCustomerUrl = '@Url.Action("DeleteCustomer", "Customer")';
+
+        function openDeleteModal(element) {
+            const customerId = $(element).data("customer-id");
+            $("#delete-modal").data("customer-id", customerId);
+            $("#customer-id").val(customerId);
+            $("#delete-modal").modal();
+        }
+
+        function deleteCustomer() {
+            const selectedCustomerId = $("#customer-id").val();
+            if (selectedCustomerId) {
+                $.post(deleteCustomerUrl + '?customerId=' + selectedCustomerId, function () {
+                    location.reload();
+                });
+            }
+        }
+
+        function closeModal() {
+            $("#delete-modal").modal('hide');
+        }
+
+    </script>
+}

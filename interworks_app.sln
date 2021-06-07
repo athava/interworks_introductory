@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP_API", "ERP_API\ERP_API.csproj", "{244957CD-8264-4C18-A9BD-08963C2371BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP_UI", "ERP_UI\ERP_UI.csproj", "{A5741529-D60C-4539-A1B8-1CE9B201B541}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP_API_TESTS", "ERP_API_TESTS\ERP_API_TESTS.csproj", "{2F36A818-E796-4C18-988B-202621B0EB8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{244957CD-8264-4C18-A9BD-08963C2371BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{244957CD-8264-4C18-A9BD-08963C2371BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{244957CD-8264-4C18-A9BD-08963C2371BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{244957CD-8264-4C18-A9BD-08963C2371BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5741529-D60C-4539-A1B8-1CE9B201B541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5741529-D60C-4539-A1B8-1CE9B201B541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5741529-D60C-4539-A1B8-1CE9B201B541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5741529-D60C-4539-A1B8-1CE9B201B541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F36A818-E796-4C18-988B-202621B0EB8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F36A818-E796-4C18-988B-202621B0EB8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F36A818-E796-4C18-988B-202621B0EB8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F36A818-E796-4C18-988B-202621B0EB8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {24F9B187-CCFD-47E0-9D0E-EA6144853B2A}
+	EndGlobalSection
+EndGlobal

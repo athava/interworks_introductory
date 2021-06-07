@@ -1,0 +1,57 @@
+﻿@model CreateUpdateCustomerVM
+@{
+    ViewBag.Title = "Create Customer";
+    Layout = "_Layout";
+}
+<h1 class="CHeading">Create Customer</h1>
+<div class="ViewDetails">
+    @using (Html.BeginForm("CreateCustomer", "Customer", FormMethod.Post, new { id = "create-customer-form" }))
+    {
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CustomerName, new { @class = "Required" })
+                    @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", required = "Required" })
+                    @Html.ValidationMessageFor(model => model.CustomerName)
+                </div><!-- form-group -->
+            </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CustomerType, new { @class = "Required" })
+                    @Html.TextBoxFor(model => model.CustomerType, new { @class = "form-control", required = "Required" })
+                    @Html.ValidationMessageFor(model => model.CustomerType)
+                </div><!-- form-group -->
+            </div><!-- col -->
+        </div><!-- row -->
+
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DiscountId)
+                    @Html.DropDownListFor(model => model.DiscountId, Model.Discounts, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DiscountId)
+                </div><!-- form-group -->
+            </div><!-- col -->
+        </div><!-- row -->
+
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SubscriptionId)
+                    @Html.DropDownListFor(model => model.SubscriptionId, Model.Subscriptions, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SubscriptionId)
+                </div><!-- form-group -->
+            </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <div class="FormBtns" role="group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-default">Cancel</button>
+                </div><!-- FormBtns -->
+            </div><!--col -->
+        </div><!-- row -->
+    }
+</div>

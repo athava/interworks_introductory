@@ -1,0 +1,53 @@
+﻿@model DiscountVM
+@{
+    ViewBag.Title = "Discount";
+    Layout = "_Layout";
+
+}
+<div class=" d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h2>Details</h2>
+    <div class="float-right btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a type="button" class="btn btn-sm btn-outline-secondary" href="@Url.Action("CreateDiscount","Discount")">Add Discount</a>
+        </div>
+        <div class="btn-group me-2">
+            <a type="button" class="btn btn-sm btn-outline-secondary" href="@Url.Action("UpdateDiscount","Discount", new { discountId = Model.Id })">Update Discount</a>
+        </div>
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="deleteDiscount()">Delete Discount</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <dl>
+            <dt>Name:</dt>
+            <dd>@Model.DiscountName</dd>
+            <dt>Type:</dt>
+            <dd>@Model.DiscountType</dd>
+            <dt>Value:</dt>
+            <dd>@Model.DiscountValue</dd>
+        </dl>
+    </div><!--col -->
+</div><!-- row -->
+
+@section Scripts{
+    <script type="text/javascript">
+        const deleteDiscountUrl = '@Url.Action("DeleteDiscount", "Discount")';
+        const discountsUrl = '@Url.Action("Discounts", "Discount")';
+
+        const discountId = '@Model.Id';
+        function deleteDiscount() {
+            if (discountId) {
+                $.post(deleteDiscountUrl + '?discountId=' + discountId, function () {
+                    window.location.href = discountsUrl;
+                });
+            }
+        }
+
+        function closeModal() {
+            $("#delete-modal").modal('hide');
+        }
+
+    </script>
+}

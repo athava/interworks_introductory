@@ -1,0 +1,102 @@
+﻿@model CustomersVM
+@{
+    ViewBag.Title = "Customers";
+    Layout = "_Layout";
+
+}
+
+<div class=" d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h2>Customers</h2>
+    <div class="float-right btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a type="button" class="btn btn-sm btn-outline-secondary" href="@Url.Action("CreateCustomer","Customer")">Add Customer</a>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-sm ListTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var index = 0; index < Model.Customers.Count(); index++)
+            {
+                var customer = Model.Customers.ElementAt(index);
+                <tr class="@(index == 0 ? "active" : "")"
+                    style="cursor: pointer">
+                    <td data-label="Name">@customer.CustomerName</td>
+                    <td data-label="Type">@customer.CustomerType</td>
+                    <td data-label="Actions" class="LTActions">
+                        <a href='@Url.Action("Customer","Customer", new { customerId = customer.Id })' rel="tooltip" class="btn btn-link ActionBtn"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href='@Url.Action("UpdateCustomer","Customer", new { customerId = customer.Id })' rel="tooltip" class="btn btn-link ActionBtn"><i class="fa fa-pen" aria-hidden="true"></i></a>
+                        <button class="btn btn-link ActionBtn"
+                                type="button"
+                                onclick="openDeleteModal(this)"
+                                rel="tooltip"
+                                data-customer-id="@customer.Id">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        Total Customers : @Model.Customers.Count()
+    </p>
+</div>
+
+
+<inpt class="hidden" id="customer-id"></inpt>
+<!-- Delete Modal-->
+<div class="modal" id="delete-modal" role="dialog" aria-labelledby="insert-modal-title" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Delete Customer</div>
+            </div><!-- modal-header -->
+
+            <div class="modal-body">
+                Are you sure you want to delete this customer?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="deleteCustomer()">Yes</button>
+                <button type="button" class="btn btn-default" onclick="closeModal()">No</button>
+            </div><!-- modal-footer -->
+        </div>
+    </div>
+</div>
+<!-- /Delete Modal-->
+
+@section Scripts
+{
+    <script type="text/javascript">
+        const deleteCustomerUrl = '@Url.Action("DeleteCustomer", "Customer")';
+
+        function openDeleteModal(element) {
+            const customerId = $(element).data("customer-id");
+            $("#delete-modal").data("customer-id", customerId);
+            $("#customer-id").val(customerId);
+            $("#delete-modal").modal();
+        }
+
+        function deleteCustomer() {
+            const selectedCustomerId = $("#customer-id").val();
+            if (selectedCustomerId) {
+                $.post(deleteCustomerUrl + '?customerId=' + selectedCustomerId, function () {
+                    location.reload();
+                });
+            }
+        }
+
+        function closeModal() {
+            $("#delete-modal").modal('hide');
+        }
+
+    </script>
+}
